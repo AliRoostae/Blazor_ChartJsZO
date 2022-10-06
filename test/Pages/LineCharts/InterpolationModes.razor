@@ -1,0 +1,122 @@
+﻿@page "/InterpolationModes"
+@*@    using Blazor_ChartJsZO
+@    using Blazor_ChartJsZO.Hellper
+@    using Blazor_ChartJsZO.Hellper.Options
+@    using test.Data*@
+
+<h3>InterpolationModes</h3>
+
+<button class="btn btn-primary" @onclick="DatasetAdd">Add Dataset</button>
+<ChartJsZO ChartConfig=@_configChart DataChart=@_dataChart  ></ChartJsZO>
+
+
+
+@code {
+
+    DataChart _dataChart;
+    ConfigChart _configChart;
+
+    void DatasetAdd()
+    {
+        _dataChart.Datasets.Add(new Dataset
+            {
+                Data =new DataTest().DataForMonth, 
+                Label = "Test chart One",
+                RandomColor = true,
+
+
+            });
+    }
+
+    string[] datapoints =new string[]{ "0", "20", "60", "60", "120", "NaN", "180", "120", "125", "105", "110", "170" };
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _configChart = new ConfigChart
+            {
+                Type =TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins =new Plugins
+                    {
+                        Title =new Title
+                        {
+                            Display =true,
+                            Text ="Chart.js Line Chart - Cubic interpolation mode"
+                        }
+                    },
+                    Interaction = new Interaction
+                    {
+                        Intersect =false
+                    },
+                    Scales =new Scales
+                    {
+                        X =new Rxy
+                        {
+                            Display =true,
+                            Title =new Title
+                            {
+                                Display=true,
+                                Text ="Val................Test"
+                            }
+                        },
+                        Y =new Rxy
+                        {
+                            Display =true,
+                            Title =new Title
+                            {
+                                Display =true,
+                                Text ="Val ... Y... Test"
+                            },
+                            SuggestedMax=200,
+                            SuggestedMin=-10
+                            
+                            
+                        }
+                        
+                    }
+                }
+            };
+
+            List<Dataset> data = new List<Dataset>();
+           data.Add(new Dataset
+            {
+                Data = datapoints.ToList(),
+                Label = "Test chart One",
+                BorderColor = new string[]{ColorChartZo.blue(0.9F)},
+                Fill=false,
+                CubicInterpolationMode = "monotone",
+                Tension =0.4
+
+
+            });
+           data.Add(new Dataset
+            {
+                Data = datapoints.ToList(),
+                                        Label = "Test chart Tow",
+                                        BorderColor = new[] { ColorChartZo.red() } ,
+                                        BackgroundColor =new[] { ColorChartZo.blue() },
+                                        BorderWidth =2
+
+
+            });
+        _dataChart = new DataChart
+        {
+            Labels =new DataTest().LabelMonth,
+            Datasets = data
+            
+        };
+
+        
+         
+           
+           
+       
+   
+        StateHasChanged();
+    }
+
+}
+
+

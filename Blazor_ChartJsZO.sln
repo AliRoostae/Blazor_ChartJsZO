@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor_ChartJsZO", "Blazor_ChartJsZO\Blazor_ChartJsZO.csproj", "{C828F760-C255-473C-9839-88B6439C75C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{55731876-302C-4758-9A93-1DD0CF6F876E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C828F760-C255-473C-9839-88B6439C75C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C828F760-C255-473C-9839-88B6439C75C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C828F760-C255-473C-9839-88B6439C75C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C828F760-C255-473C-9839-88B6439C75C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55731876-302C-4758-9A93-1DD0CF6F876E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55731876-302C-4758-9A93-1DD0CF6F876E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55731876-302C-4758-9A93-1DD0CF6F876E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55731876-302C-4758-9A93-1DD0CF6F876E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {863B62EE-EDBE-4620-B398-C49AC6DA9F4D}
+	EndGlobalSection
+EndGlobal
