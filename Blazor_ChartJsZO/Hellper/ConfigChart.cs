@@ -7,7 +7,7 @@ namespace Blazor_ChartJsZO.Hellper
         {
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public TypChart Type { get; set; } = TypChart.Bar;
+        public TypChart Type { get; set; } = TypChart.bar;
 
 
 

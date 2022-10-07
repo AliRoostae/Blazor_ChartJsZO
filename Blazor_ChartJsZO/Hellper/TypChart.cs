@@ -2,7 +2,7 @@
 {
     public enum TypChart
         {
-            Bar, bubble, doughnut, line, polarArea, radar, scatter, pie
+            bar, bubble, doughnut, line, polarArea, radar, scatter, pie
         }
     }
 

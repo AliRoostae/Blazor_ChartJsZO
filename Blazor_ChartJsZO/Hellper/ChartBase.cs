@@ -2,7 +2,7 @@
 
 namespace Blazor_ChartJsZO.Hellper
 {
-    internal class ChartBase : ConfigChart
+    public class ChartBase : ConfigChart
         {
 
             [JsonProperty("data")]

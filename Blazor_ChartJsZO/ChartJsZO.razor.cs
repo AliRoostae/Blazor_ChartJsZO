@@ -8,63 +8,66 @@ namespace Blazor_ChartJsZO
 {
     partial class ChartJsZO
     {
+   
+        private DotNetObjectReference<ChartJsZO>? objRef;
+        public void Dispose()
+        {
+            objRef?.Dispose();
+        }
+        protected override void OnInitialized()
+        {
+            objRef = DotNetObjectReference.Create(this);
+            JS.InvokeAsync<string>("SetAssemblyName", objRef);
+            
+        }
 
+        [JSInvokable]
+        public  void ClickChartZo(string argo)
+        {
+            var result = JsonConvert.DeserializeObject<EventClickChart>(argo);
+            ChartClick.InvokeAsync(result);
+        }
         static int Id = 0;
         string ChatrID { get; set; } = $"chartZeroOne{++Id}";
-        ChartBase _configChart =new ChartBase();
+        //ChartBase _configChart =new ChartBase();
         [Parameter]
-        public ConfigChart? ChartConfig
+        public ChartBase ChartConfig { get; set; }
+       
+         [Parameter]
+        public EventCallback<EventClickChart> ChartClick { get; set; }
+
+       
+        protected override void OnAfterRender(bool firstRender)
         {
-            get => new ConfigChart
-            {
-                Options =_configChart.Options,
-                Type = _configChart.Type
-            }; 
-            
-            set
-            {
-                if(value == null) value = new ConfigChart();
-                _configChart.Options = value.Options;
-                _configChart.Type = value.Type;
-                SetChart();
-            }
+            if (!firstRender) return;
+            var jspr = JsonConvert.SerializeObject(ChartConfig, Formatting.None,
+                       new JsonSerializerSettings
+                       {
+                           NullValueHandling = NullValueHandling.Ignore
+                       });
+            JS.InvokeVoidAsync("SetConfigChart", ChatrID, jspr);
+           
         }
-        DataChart _dataChart =new();
-        [Parameter]
-        public DataChart? DataChart
+       public  void AddDetaset(Dataset argo)
         {
-            get => _dataChart;
-
-
-            set
-            {
-                if(value == null) value = new DataChart();
-                _configChart.Data = value;
-                _dataChart = value;
-                SetData();
-            }
-        }
-
-        void SetData()
-        {
-            if (DataChart == null) return;
-            var jspr = JsonConvert.SerializeObject(DataChart, Newtonsoft.Json.Formatting.None,
+            if(ChartConfig == null) return;
+            if (argo == null) return;
+            var dataset = ChartConfig.Data;
+            if (dataset == null) dataset = new DataChart();
+            dataset.Datasets.Add(argo);
+            var jspr = JsonConvert.SerializeObject(dataset, Formatting.None,
                             new JsonSerializerSettings
                             {
                                 NullValueHandling = NullValueHandling.Ignore
                             });
-            JSRuntime.InvokeVoidAsync("SetDataChart", ChatrID, jspr);
+            JS.InvokeVoidAsync("SetDataChart", ChatrID, jspr);
+            StateHasChanged();
         }
-        void SetChart()
-        {
-            if (ChartConfig == null) return;
-            var jspr = JsonConvert.SerializeObject(ChartConfig, Newtonsoft.Json.Formatting.None,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
-            JSRuntime.InvokeVoidAsync("SetConfigChart", ChatrID, jspr);
-        }
+      
+
+       
+
+
 
     }
 }

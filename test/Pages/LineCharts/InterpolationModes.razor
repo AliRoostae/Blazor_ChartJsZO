@@ -5,20 +5,27 @@
 @    using test.Data*@
 
 <h3>InterpolationModes</h3>
+<h3>Select Value @_selectChart</h3>
+<h3>___________________________________________________</h3>
 
 <button class="btn btn-primary" @onclick="DatasetAdd">Add Dataset</button>
-<ChartJsZO ChartConfig=@_configChart DataChart=@_dataChart  ></ChartJsZO>
+<ChartJsZO ChartConfig=@_configChart @ref=@childChart ChartClick=@ClickChart ></ChartJsZO>
 
 
 
 @code {
+    string _selectChart="NON";
+    void ClickChart(EventClickChart argo)
+    {
+        _selectChart = argo.LabelsData;
+    }
+    ChartJsZO childChart;
 
-    DataChart _dataChart;
-    ConfigChart _configChart;
+    ChartBase _configChart;
 
     void DatasetAdd()
     {
-        _dataChart.Datasets.Add(new Dataset
+        childChart.AddDetaset(new Dataset
             {
                 Data =new DataTest().DataForMonth, 
                 Label = "Test chart One",
@@ -32,7 +39,7 @@
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
-        _configChart = new ConfigChart
+        _configChart = new ChartBase
             {
                 Type =TypChart.line,
                 Options = new Options
@@ -101,7 +108,7 @@
 
 
             });
-        _dataChart = new DataChart
+        _configChart.Data = new DataChart
         {
             Labels =new DataTest().LabelMonth,
             Datasets = data

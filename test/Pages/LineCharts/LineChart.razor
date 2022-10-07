@@ -2,20 +2,28 @@
 
 
 <h3>Line Chart</h3>
+<h3>Select Value @_selectChart</h3>
+<h3>___________________________________________________</h3>
 <button class="btn btn-primary" @onclick="DatasetAdd">Add Dataset</button>
 <button class="btn btn-primary" @onclick="AddData">Add Data</button>
-<ChartJsZO ChartConfig=@_configChart DataChart=@_dataChart  ></ChartJsZO>
+<ChartJsZO ChartConfig=@_configChart @ref=@childChart ChartClick=@ClickChart ></ChartJsZO>
 
 @code {
 
-    DataChart _dataChart;
-    ConfigChart _configChart;
+    string _selectChart="NON";
+    void ClickChart(EventClickChart argo)
+    {
+        _selectChart = argo.LabelsData;
+    }
+    ChartJsZO childChart;
+
+    ChartBase _configChart;
 
     void DatasetAdd()
     {
-        _dataChart.Datasets.Add(new Dataset
+        childChart.AddDetaset(new Dataset
             {
-                Data = new DataTest().DataForMonth,
+                Data =new DataTest().DataForMonth, 
                 Label = "Test chart One",
                 RandomColor = true,
 
@@ -23,23 +31,24 @@
             });
     }
 
+
     void AddData()
     {
-
-        var set = _dataChart.Datasets[0];
-        if (_dataChart == null) return;
+        var data = childChart.ChartConfig.Data;
+        var set = data.Datasets[0];
+        if (data == null) return;
         var rnd = (new Random().Next(0,500)).ToString();
         set.Data.Add(rnd);
-        if(_dataChart.Labels.Count() <= set.Data.Count())
+        if(data.Labels.Count() <= set.Data.Count())
         {
-            _dataChart.Labels.Add(rnd);
+            data.Labels.Add(rnd);
         }
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
-        _configChart = new ConfigChart
+        _configChart = new ChartBase
             {
                 Type =TypChart.line,
                 Options = new Options
@@ -67,7 +76,7 @@
 
 
             });
-        _dataChart = new DataChart
+        _configChart.Data  = new DataChart
         {
             Labels =new DataTest().LabelMonth,
             Datasets = data
@@ -76,11 +85,11 @@
 
         
          
-           
+              StateHasChanged();
            
        
    
-        StateHasChanged();
+        
     }
 
 }

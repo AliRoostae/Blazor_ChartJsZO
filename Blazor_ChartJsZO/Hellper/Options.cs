@@ -63,6 +63,11 @@ namespace Blazor_ChartJsZO.Hellper
 
             [JsonProperty("transitions")]
             public Transitions? Transitions { get; set; }
+
+        [JsonProperty("onClick")]
+        public string OnClick => ""; 
+        [JsonProperty("events")]
+        public string[] Events => new[] { "click" } ;
         }
 
      
