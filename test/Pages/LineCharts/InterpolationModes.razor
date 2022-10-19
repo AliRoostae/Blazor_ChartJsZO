@@ -9,7 +9,7 @@
 <h3>___________________________________________________</h3>
 
 <button class="btn btn-primary" @onclick="DatasetAdd">Add Dataset</button>
-<ChartJsZO ChartConfig=@_configChart @ref=@childChart ChartClick=@ClickChart ></ChartJsZO>
+@*<ChartJsZO ChartConfig=@_configChart @ref=@childChart ChartClick=@ClickChart ></ChartJsZO>*@
 
 
 
@@ -21,7 +21,7 @@
     }
     ChartJsZO childChart;
 
-    ChartBase _configChart;
+
 
     void DatasetAdd()
     {
@@ -36,84 +36,84 @@
     }
 
     string[] datapoints =new string[]{ "0", "20", "60", "60", "120", "NaN", "180", "120", "125", "105", "110", "170" };
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (!firstRender) return;
-        _configChart = new ChartBase
-            {
-                Type =TypChart.line,
-                Options = new Options
-                {
-                    Responsive = true,
-                    Plugins =new Plugins
-                    {
-                        Title =new Title
-                        {
-                            Display =true,
-                            Text ="Chart.js Line Chart - Cubic interpolation mode"
-                        }
-                    },
-                    Interaction = new Interaction
-                    {
-                        Intersect =false
-                    },
-                    Scales =new Scales
-                    {
-                        X =new Rxy
-                        {
-                            Display =true,
-                            Title =new Title
-                            {
-                                Display=true,
-                                Text ="Val................Test"
-                            }
-                        },
-                        Y =new Rxy
-                        {
-                            Display =true,
-                            Title =new Title
-                            {
-                                Display =true,
-                                Text ="Val ... Y... Test"
-                            },
-                            SuggestedMax=200,
-                            SuggestedMin=-10
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    if (!firstRender) return;
+    //    _configChart = new ChartBase
+    //        {
+    //            Type =TypChart.line,
+    //            Options = new Options
+    //            {
+    //                Responsive = true,
+    //                Plugins =new Plugins
+    //                {
+    //                    Title =new Title
+    //                    {
+    //                        Display =true,
+    //                        Text ="Chart.js Line Chart - Cubic interpolation mode"
+    //                    }
+    //                },
+    //                Interaction = new Interaction
+    //                {
+    //                    Intersect =false
+    //                },
+    //                Scales =new Scales
+    //                {
+    //                    X =new Rxy
+    //                    {
+    //                        Display =true,
+    //                        Title =new Title
+    //                        {
+    //                            Display=true,
+    //                            Text ="Val................Test"
+    //                        }
+    //                    },
+    //                    Y =new Rxy
+    //                    {
+    //                        Display =true,
+    //                        Title =new Title
+    //                        {
+    //                            Display =true,
+    //                            Text ="Val ... Y... Test"
+    //                        },
+    //                        SuggestedMax=200,
+    //                        SuggestedMin=-10
                             
                             
-                        }
+    //                    }
                         
-                    }
-                }
-            };
+    //                }
+    //            }
+    //        };
 
-            List<Dataset> data = new List<Dataset>();
-           data.Add(new Dataset
-            {
-                Data = datapoints.ToList(),
-                Label = "Test chart One",
-                BorderColor = new string[]{ColorChartZo.blue(0.9F)},
-                Fill=false,
-                CubicInterpolationMode = "monotone",
-                Tension =0.4
-
-
-            });
-           data.Add(new Dataset
-            {
-                Data = datapoints.ToList(),
-                                        Label = "Test chart Tow",
-                                        BorderColor = new[] { ColorChartZo.red() } ,
-                                        BackgroundColor =new[] { ColorChartZo.blue() },
-                                        BorderWidth =2
+    //        List<Dataset> data = new List<Dataset>();
+    //       data.Add(new Dataset
+    //        {
+    //            Data = datapoints.ToList(),
+    //            Label = "Test chart One",
+    //            BorderColor = new string[]{ColorChartZo.blue(0.9F)},
+    //            Fill=false,
+    //            CubicInterpolationMode = "monotone",
+    //            Tension =0.4
 
 
-            });
-        _configChart.Data = new DataChart
-        {
-            Labels =new DataTest().LabelMonth,
-            Datasets = data
+    //        });
+    //       data.Add(new Dataset
+    //        {
+    //            Data = datapoints.ToList(),
+    //                                    Label = "Test chart Tow",
+    //                                    BorderColor = new[] { ColorChartZo.red() } ,
+    //                                    BackgroundColor =new[] { ColorChartZo.blue() },
+    //                                    BorderWidth =2
+
+
+    //        });
+    //    _configChart.Data = new DataChart
+    //    {
+    //        Labels =new DataTest().LabelMonth,
+    //        Datasets = data
             
-        };
+    //    };
 
         
          
@@ -121,8 +121,8 @@
            
        
    
-        StateHasChanged();
-    }
+    //    StateHasChanged();
+    //}
 
 }
 

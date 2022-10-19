@@ -11,7 +11,9 @@ namespace Blazor_ChartJsZO.Hellper
 
     public class Dataset : Border
         {
-            string[]? backgroundColorSet { get; set; } 
+        
+
+        string[]? backgroundColorSet { get; set; } 
             string[]? borderColorSet { get; set; } 
 
             [JsonProperty("hidden")]
