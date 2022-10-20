@@ -1,0 +1,126 @@
+﻿@page "/Charts"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+    <h3>Please Click on "UpdateDataChart" button to show sample Chart</h3>
+    <h4>Selected Value:  <strong>@_selectChart</strong></h4>
+    <h4>Selected Label:  <strong>@_selectChart1</strong></h4>
+    <hr />
+    <button class="btn btn-primary" @onclick="DatasetAdd">Add Dataset</button>
+    <button class="btn btn-primary" @onclick="UpdateLabel">Update Label</button>
+    <button class="btn btn-primary" @onclick="UpdateType">Update Type</button>
+    <button class="btn btn-primary" @onclick="UpdateData">Update Data</button>
+    <button class="btn btn-primary" @onclick="UpdateDataChart">UpdateData Chart</button>
+    <button class="btn btn-primary" @onclick="AddDataToDetaset">Add Data To Detaset</button>
+    <ChartJsZO @ref=@childChart ChartClick=@ClickChart />
+</div>
+@code {
+    string _selectChart = "please click on Chart";
+    string _selectChart1 = "please click on Chart";
+    void ClickChart(EventClickChart argo)
+    {
+        _selectChart = argo.ValueDataset;
+        _selectChart1 = argo.LabelsData;
+    }
+    ChartJsZO childChart;
+
+    void AddDataToDetaset()
+    {
+        childChart.AddDataToDetaset(new[] { "100", "250", "300", "50", "200" }, 0);
+    }
+
+    void UpdateLabel()
+    {
+        childChart.UpdateLabel((new[] { "1", "2", "3", "4", "5" }).ToList());
+    }
+    void UpdateType()
+    {
+        childChart.UpdateType(TypChart.bar);
+    }
+    void UpdateDataChart()
+    {
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart One",
+                RandomColor = true,
+
+
+            });
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart Tow",
+                BorderColor = new[] { ColorChartZo.red() },
+                BackgroundColor = new[] { ColorChartZo.blue(1) },
+                BorderWidth = 2
+
+
+            });
+
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart 3",
+                BorderColor = new[] { ColorChartZo.red() },
+                BackgroundColor = new[] { ColorChartZo.blue(1) },
+                BorderWidth = 2
+
+
+            });
+
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart 4",
+                BorderColor = new[] { ColorChartZo.red() },
+                BackgroundColor = new[] { ColorChartZo.blue(1) },
+                BorderWidth = 2
+
+
+            });
+        childChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+
+    void DatasetAdd()
+    {
+        childChart.AddDetaset(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart One",
+                RandomColor = true,
+
+
+            });
+    }
+    void UpdateData()
+    {
+        childChart.UpdateDetaset(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart One",
+                RandomColor = true,
+
+
+            }, 0);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        childChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                }
+            });
+    }
+}

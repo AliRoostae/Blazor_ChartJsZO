@@ -1,0 +1,63 @@
+﻿@page "/MultiPieChart"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+
+    <ChartJsZO @ref="@_pieChart"></ChartJsZO>
+</div>
+
+@code {
+    ChartJsZO _pieChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _pieChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.pie,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "multi pie chart"
+                        }
+                    }
+                }
+            });
+
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Label = " test 1 multi pie",
+                BackgroundColor = new string[] { ColorChartZo.red() },
+                Data = new TestData().DataForMonth
+            });
+        data1.Add(new Dataset
+            {
+                Label = " test 2 multi pie",
+                BackgroundColor = new string[] { ColorChartZo.green() },
+                Data = new TestData().DataForMonth
+            });
+        data1.Add(new Dataset
+            {
+                Label = " test 3 multi pie",
+                BackgroundColor = new string[] { ColorChartZo.pink() },
+                Data = new TestData().DataForMonth
+            });
+        _pieChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

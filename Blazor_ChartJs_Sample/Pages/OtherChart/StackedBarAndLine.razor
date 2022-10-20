@@ -1,0 +1,42 @@
+﻿@page "/StackedBarAndLine"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+    <ChartJsZO  @ref="_mixChart"></ChartJsZO>
+</div>
+
+@code {
+    ChartBase _mixConfig;
+    ChartJsZO _mixChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _mixChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                RandomColor = true
+            });
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.red() },
+                Type = TypChart.bar
+            });
+        _mixChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

@@ -1,0 +1,98 @@
+﻿@page "/BarChartt"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-md-9 col-sm-12">
+            <ChartJsZO @ref=@_barChart></ChartJsZO>
+        </div>
+        <div class=" col-md-3 col-sm-12">
+            <div class="d-block">
+                <button class="btn btn-primary m-3 p-1" @onclick="DatasetAdd">Add Dataset</button>
+                @*<button class="btn btn-primary m-3 p-1" @onclick="AddData">Add Data</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    ChartJsZO _barChart;
+
+    void DatasetAdd()
+    {
+        _barChart.AddDetaset(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart One",
+                RandomColor = true,
+            });
+    }
+
+
+    //void AddData()
+    //{
+    //    var data = _barChart.ChartConfig.Data;
+    //    var set = data.Datasets[0];
+    //    if (data == null) return;
+    //    var rnd = (new Random().Next(0, 500)).ToString();
+    //    set.Data.Add(rnd);
+    //    if (data.Labels.Count() <= set.Data.Count())
+    //    {
+    //        data.Labels.Add(rnd);
+    //    }
+    //}
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _barChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.bar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "vertical bar chart"
+                        }
+                    }
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart One",
+                BackgroundColor = new string[] { ColorChartZo.greenyellow() },
+                BorderColor = new string[] { ColorChartZo.forestgreen() }
+
+            });
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Test chart Tow",
+                BorderColor = new[] { ColorChartZo.red() },
+                BackgroundColor = new[] { ColorChartZo.blue(1) },
+                BorderWidth = 2
+            });
+        _barChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+}

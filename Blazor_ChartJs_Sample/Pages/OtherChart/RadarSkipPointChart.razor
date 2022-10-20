@@ -1,0 +1,51 @@
+﻿@page "/RadarSkipPointChart"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+
+<ChartJsZO  @ref="@_radarChart"></ChartJsZO>
+</div>
+@code {
+    ChartJsZO _radarChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _radarChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.radar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "test radar skip point chart"
+                        }
+                    }
+                }
+            });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                BackgroundColor = new string[] { ColorChartZo.peachpuff() },
+                Label = "data 1",
+                Data = new TestData().DataForMonth
+            });
+        data1.Add(new Dataset
+            {
+                BackgroundColor = new string[] { ColorChartZo.yellow() },
+                Label = "data2",
+                Data = new TestData().DataForMonth
+            });
+        _radarChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

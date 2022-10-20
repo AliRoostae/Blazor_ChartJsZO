@@ -1,0 +1,43 @@
+﻿@page "/Bubble"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<ChartJsZO @ref="@_bubbleChart"></ChartJsZO>
+
+@code {
+    ChartJsZO _bubbleChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _bubbleChart.InitChart(new ConfigChart
+        {
+            Type = TypChart.bubble,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        }
+                    }
+                }
+        });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "bubble chart",
+                BackgroundColor = new string[] {ColorChartZo.yellow()},
+                BorderColor = new string[] { ColorChartZo.red() }
+            });
+        _bubbleChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

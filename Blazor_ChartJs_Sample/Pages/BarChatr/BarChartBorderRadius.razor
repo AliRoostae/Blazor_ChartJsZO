@@ -1,0 +1,54 @@
+﻿@page "/BarChartBorderRadius"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+    <ChartJsZO  @ref="@_barChart"></ChartJsZO>
+</div>
+
+@code {
+    ChartJsZO _barChart;
+
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _barChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.bar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "Bar Chart Border Radius"
+                        }
+                    }
+                }
+            });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new[] { ColorChartZo.red() },
+                BorderWidth = 2,
+                BorderSkipped = BorderSkipped.start,
+                BorderRadius = 20
+            });
+
+        _barChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

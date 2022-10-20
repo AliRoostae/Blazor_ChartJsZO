@@ -1,0 +1,48 @@
+﻿@page "/PolarAreaChart"
+@using StructureChartJs.Hellper
+<div class="container-fluid">
+
+    <ChartJsZO  @ref="@_polarAreaChart"></ChartJsZO>
+</div>
+
+@code {
+    ChartBase _polarAreaConfig;
+    ChartJsZO _polarAreaChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _polarAreaChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.polarArea,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "polarArea"
+                        }
+                    }
+                }
+            });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                RandomColor = true,
+                Label = "polarArea",
+            });
+        _polarAreaChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

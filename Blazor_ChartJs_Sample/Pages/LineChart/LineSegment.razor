@@ -1,0 +1,40 @@
+﻿@page "/LineSegment"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<ChartJsZO @ref="@_lineChart"></ChartJsZO>
+
+@code {
+    ChartJsZO _lineChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "segment sample",
+                BorderColor = new string[] { ColorChartZo.red() },
+                Segment = new Segment
+                {
+                    BorderColor = new string[] { ColorChartZo.blue() }
+                },
+                SpanGaps = true
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+}

@@ -1,0 +1,52 @@
+﻿@page "/StepedLine"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+
+<ChartJsZO @ref="@_LineChart"></ChartJsZO>
+
+@code {
+    ChartJsZO _LineChart;
+    ChartBase _lineConfig;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _LineChart.InitChart(new ConfigChart
+        {
+            Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Interaction = new Interaction
+                    {
+                        Intersect = false,
+                        Axis = Axis.x
+                    },
+                    Plugins = new Plugins
+                    {
+                        Title = new Title
+                        {
+                            Display = true,
+                            Align = Align.center,
+                            Position = Position.top
+                        }
+                    }
+                }
+        });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "step Line",
+                BackgroundColor = new string[] { ColorChartZo.red() },
+                Stepped = true
+            });
+        _LineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data1
+            });
+    }
+}

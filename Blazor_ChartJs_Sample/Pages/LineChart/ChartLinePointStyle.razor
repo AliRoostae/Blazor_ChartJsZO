@@ -1,0 +1,36 @@
+﻿@page "/ChartLinePointStyle";
+@using StructureChartJs.Hellper
+
+<ChartJsZO  @ref="@_lineChart"></ChartJsZO>
+
+@code {
+    ChartJsZO _lineChart;
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _lineChart.InitChart(new ConfigChart
+        {
+            Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true
+                }
+        });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                PointStyle = PointStyle.circle,
+                PointRadius = 10,
+                PointHoverRadius = 15
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data1
+            });
+    }
+}

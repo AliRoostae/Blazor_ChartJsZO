@@ -1,0 +1,233 @@
+﻿@inherits LayoutComponentBase
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light show-sidebar-mobile">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ChartJs Blazor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/Charts">Chart and ability</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/Event">Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/BarChartt">Vertical Bar Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/HorizontalBarChart">Horizontal Bar Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/BarChartBorderRadius">Bar Chart Border Radius</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/LineChart">Line Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/ChartLinePointStyle">Chart Line Point Style</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/InterPolatationModel">Inter Polatation Model Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/LineSegment">Line Segment Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/StepedLine">Steped Line Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/Bubble">Bubble Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#/Doughnet">Doughnet Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/PieChart">Pie Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/MultiPieChart">Multi Pie Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/PolarAreaChart">Polar Area Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/RadarChart">Radar Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/RadarSkipPointChart">Radar Skip Point Chart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/StackedBarAndLine">Stacked Bar And Line</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-lg-2 col-md-3">
+            <div class="col-auto px-sm-2 px-0 show-sidebar-screen">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link align-middle px-0 mr-4 color-sidebar-content">
+                                <span class="ms-1 d-none d-sm-inline">home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Charts" class="nav-link align-middle px-0 mr-4 color-sidebar-content">
+                                <span class="ms-1 d-none d-sm-inline">Charts and ability</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Event" class="nav-link align-middle px-0 mr-4 color-sidebar-content">
+                                <span class="ms-1 d-none d-sm-inline">Event</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/BarChartt" class="nav-link align-middle px-0 mr-4 color-sidebar-content" @onclick="ChangeBarList">
+                                <span class="ms-1 d-none d-sm-inline">Bar Chart</span>
+                            </a>
+                        </li>
+                        @if (_toggleBarChartList)
+                        {
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/BarChartt" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Vertical Bar Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/HorizontalBarChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Horizontal Bar Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/BarChartBorderRadius" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Border Radius Bar Chart</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a href="/LineChart" class="nav-link align-middle px-0 mr-4 color-sidebar-content" @onclick="ChangeLineList">
+                                <span class="ms-1 d-none d-sm-inline">Line Chart</span>
+                            </a>
+                        </li>
+                        @if (_toggleLineChartList)
+                        {
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/LineChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Line Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/ChartLinePointStyle" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Line Point Style Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/InterPolatationModel" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Inter Polatation Model Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/LineSegment" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Line Segment Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/StepedLine" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Steped Line Chart</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a href="/Doughnet" class="nav-link align-middle px-0 mr-4 color-sidebar-content" @onclick="ChangeAnotherList">
+                                <span class="ms-1 d-none d-sm-inline">Another Chart</span>
+                            </a>
+                        </li>
+                        @if (_toggleAnotherChartList)
+                        {
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/Bubble" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Bubble Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/Doughnet" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Doughnet Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/PieChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Pie Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/MultiPieChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Multi Pie Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/PolarAreaChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Polar Area Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/RadarChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Radar Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/RadarSkipPointChart" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Radar Skip Point Chart</span>
+                                </a>
+                            </li>
+                            <li class="nav-item color-sidebar-toggle w-100">
+                                <a href="/StackedBarAndLine" class="nav-link align-middle px-0 mr-4">
+                                    <span class="ms-1 d-none d-sm-inline text-white">Stacked Bar And Line Chart</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col">
+            <article class="content px-4">
+                @Body
+            </article>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    bool _toggleBarChartList = false;
+    bool _toggleLineChartList = false;
+    bool _toggleAnotherChartList = false;
+
+    private void ChangeBarList()
+    {
+        _toggleBarChartList = !_toggleBarChartList;
+    }
+    private void ChangeLineList()
+    {
+        _toggleLineChartList = !_toggleLineChartList;
+    }
+    private void ChangeAnotherList()
+    {
+        _toggleAnotherChartList = !_toggleAnotherChartList;
+    }
+}

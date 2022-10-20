@@ -1,0 +1,138 @@
+﻿@page "/Event"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+    <div class="row">
+        <pre>
+        <code>
+                public class EventClickChart
+                    {
+                        public string LabelsData { get; set; }
+                        public string ValueDataset { get; set; }
+                        public string IndexDataset { get; set; }
+                        public string ValueDatasetsIndex { get; set; }
+                        public string labelDataset { get; set; }
+                    }
+            </code>
+        </pre>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h6 class="text-center text-black">select value in Bar chart : @_selectBarChart.ValueDataset</h6>
+            <h6 class="text-center text-black">select label : @_selectBarChart.LabelsData</h6>
+            <h6 class="text-center text-black">select index chart : @_selectBarChart.IndexDataset</h6>
+            <h6 class="text-center text-black">select value data index : @_selectBarChart.ValueDatasetsIndex</h6>
+            <h6 class="text-center text-black">select label data set : @_selectBarChart.labelDataset</h6>
+            <ChartJsZO @ref="_barChart" ChartClick="ClickBarChart"></ChartJsZO>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h6 class="text-center text-black">select value in line chart : @_selectLineChart.ValueDataset</h6>
+            <h6 class="text-center text-black">select label : @_selectLineChart.LabelsData</h6>
+            <h6 class="text-center text-black">select index chart : @_selectLineChart.IndexDataset</h6>
+            <h6 class="text-center text-black">select value data index : @_selectLineChart.ValueDatasetsIndex</h6>
+            <h6 class="text-center text-black">select label data set : @_selectLineChart.labelDataset</h6>
+            <ChartJsZO @ref="_lineChart" ChartClick="ClickLineChart"></ChartJsZO>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    ChartJsZO _lineChart;
+    ChartJsZO _barChart;
+
+    EventClickChart _selectLineChart = new EventClickChart();
+    EventClickChart _selectBarChart = new EventClickChart();
+
+    void ClickBarChart(EventClickChart e)
+    {
+        _selectBarChart = e;
+    }
+    void ClickLineChart(EventClickChart e)
+    {
+        _selectLineChart = e;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        FillLineChart();
+        FillBarChart();
+    }
+    private void FillLineChart()
+    {
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "test event in line chart"
+                        }
+                    }
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Label = "line chart",
+                BackgroundColor = new string[] { ColorChartZo.blue() },
+                BorderColor = new string[] { ColorChartZo.blue() },
+                Data = new TestData().DataForMonth
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data,
+                Labels = new TestData().LabelMonth
+            });
+    }
+
+    private void FillBarChart()
+    {
+        _barChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.bar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "bar chart"
+                        }
+                    }
+                }
+            });
+
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "event bar chart",
+                BackgroundColor = new string[] { ColorChartZo.orange() },
+                BorderColor = new string[] { ColorChartZo.red() }
+
+            });
+        _barChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+}

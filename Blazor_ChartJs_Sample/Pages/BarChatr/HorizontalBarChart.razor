@@ -1,0 +1,68 @@
+﻿@page "/HorizontalBarChart"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class=" container-fluid">
+    <ChartJsZO  @ref="@_barChart"></ChartJsZO>
+</div>
+@code {
+    ChartBase _barConfig;
+    ChartJsZO _barChart;
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _barChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.bar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    IndexAxis = "y",
+                    Elements = new Elements
+                    {
+                        Bar = new Bar
+                        {
+                            BorderWidth = 2
+                        }
+                    },
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.right
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "Horizontal Bar Chart"
+                        }
+                    }
+                }
+            });
+
+        List<Dataset> data1 = new List<Dataset>();
+
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.green() },
+                BorderColor = new string[] { ColorChartZo.black() },
+                Label = "data 1111"
+            });
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.red() },
+                BorderColor = new string[] { ColorChartZo.white() },
+                Label = "data 2222"
+            });
+        _barChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data1
+            });
+    }
+}

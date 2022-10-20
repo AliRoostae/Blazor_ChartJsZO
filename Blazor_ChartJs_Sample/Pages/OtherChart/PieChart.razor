@@ -1,0 +1,35 @@
+﻿@page "/PieChart"
+@using StructureChartJs.Hellper
+
+<div class="container-fluid">
+    <ChartJsZO @ref="_pieChart"></ChartJsZO>
+</div>
+
+@code {
+    ChartJsZO _pieChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _pieChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.pie,
+                Options = new Options
+                {
+                    Responsive = true
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "pie chart",
+                RandomColor = true
+            });
+        _pieChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

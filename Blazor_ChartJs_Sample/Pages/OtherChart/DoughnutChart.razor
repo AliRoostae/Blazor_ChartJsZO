@@ -1,0 +1,45 @@
+﻿@page "/Doughnet"
+@using StructureChartJs.Hellper
+
+<ChartJsZO  @ref="@_doughunetChart"></ChartJsZO>
+
+@code {
+    ChartJsZO _doughunetChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _doughunetChart.InitChart(new ConfigChart
+        {
+             Type = TypChart.doughnut,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Position = Position.top
+                        },
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "doughnet chart"
+                        }
+                    }
+                }
+        });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                RandomColor = true,
+                Label = "test doughunet"
+            });
+        _doughunetChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

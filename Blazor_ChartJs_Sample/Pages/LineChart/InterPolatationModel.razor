@@ -1,0 +1,88 @@
+﻿@page "/InterPolatationModel"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+    <ChartJsZO @ref="@_lineChart"></ChartJsZO>
+</div>
+
+@code {
+    ChartJsZO _lineChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "line chart"
+                        }
+                    },
+                    Interaction = new Interaction
+                    {
+                        Intersect = false
+                    },
+                    Scales = new Scales
+                    {
+                        X = new Rxy
+                        {
+                            Display = true,
+                            Title = new Title
+                            {
+                                Display = true,
+                                Text = "data X"
+                            }
+                        },
+                        Y = new Rxy
+                        {
+                            Display = true,
+                            Title = new Title
+                            {
+                                Display = true,
+                                Text = "data Y"
+                            },
+                            SuggestedMax = 200,
+                            SuggestedMin = -10
+
+
+                        }
+
+                    }
+                }
+            });
+
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "first data",
+                BorderColor = new string[] { ColorChartZo.blue(0.9F) },
+                Fill = false,
+                Tension = 0.4
+
+
+            });
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "second data",
+                BorderColor = new[] { ColorChartZo.red() },
+                BorderWidth = 2,
+                BorderRadius = 10
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+}

@@ -1,0 +1,42 @@
+﻿@page "/RadarChart"
+@using StructureChartJs.Hellper
+
+<div class="container-fluid">
+
+    <ChartJsZO  @ref="@_radarChart"></ChartJsZO>
+</div>
+@code {
+    ChartJsZO _radarChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _radarChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.radar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Plugins = new Plugins
+                    {
+                        Title = new Title
+                        {
+                            Display = true,
+                            Text = "test radar chart"
+                        }
+                    }
+                }
+            });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                RandomColor = true,
+                Data = new TestData().DataForMonth,
+            });
+        _radarChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data1,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

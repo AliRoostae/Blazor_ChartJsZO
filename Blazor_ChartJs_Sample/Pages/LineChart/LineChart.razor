@@ -1,0 +1,82 @@
+﻿@page "/LineChart"
+@using StructureChartJs.Hellper
+@using StructureChartJs.Hellper.Color
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <ChartJsZO  @ref="@_lineChart"></ChartJsZO>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="d-block">
+                @*<button class="btn btn-primary m-3 p-1" @onclick="AddDataSet">Add Dataset</button>*@
+                <button class="btn btn-primary m-3 p-1" @onclick="AddData">Add Data</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+
+    ChartJsZO _lineChart;
+
+    void AddData()
+    {
+        _lineChart.AddDetaset(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "Add data set",
+                RandomColor = true
+            });
+    }
+
+    //void AddDataSet()
+    //{
+    //    var addData = _lineChart.ChartConfig.Data;
+    //    var setData = addData.Datasets[0];
+    //    if (addData == null) return;
+    //    var random = (new Random().Next(0, 500)).ToString();
+    //    setData.Data.Add(random);
+    //    if (addData.Labels.Count() <= setData.Data.Count())
+    //    {
+    //        addData.Labels.Add(random);
+    //    }
+    //}
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Fill = true
+                }
+            });
+        List<Dataset> data1 = new List<Dataset>();
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new[] { ColorChartZo.red() },
+                Fill = true,
+                BorderWidth = 4
+            });
+        data1.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.peachpuff() },
+                Fill = false,
+                BorderDash = new int[] { 5, 5 }
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data1
+            });
+    }
+}
