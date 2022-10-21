@@ -13,11 +13,12 @@ namespace Blazor_ChartJsZO
         public void Dispose()
         {
             objRef?.Dispose();
+            JS.InvokeAsync<string>("DisposAssemblyName", ChatrID);
         }
         protected override void OnInitialized()
         {
             objRef = DotNetObjectReference.Create(this);
-            JS.InvokeAsync<string>("SetAssemblyName", objRef);
+            JS.InvokeAsync<string>("SetAssemblyName", objRef, ChatrID);
             
         }
 

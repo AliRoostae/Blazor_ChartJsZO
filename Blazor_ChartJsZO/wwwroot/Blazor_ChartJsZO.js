@@ -32,54 +32,69 @@ loadScript("_content/Blazor_ChartJsZO/ChartJs/chart.js", function () { });
 
 
 var dotNetHelper;
-function SetAssemblyName(dotNetHelperarg) {
-    dotNetHelper = dotNetHelperarg;
+function SetAssemblyName(dotNetHelperarg, idChart) {
+    
+    if (dotNetHelper === undefined) {
+        dotNetHelper = [{ id: idChart, asmb: dotNetHelperarg }];
+    } else {
+       dotNetHelper.push({ id: idChart, asmb: dotNetHelperarg });
+    }
+    console.log(dotNetHelper);
+}
+function DisposAssemblyName(idChart) {
+
+    dotNetHelper.forEach(obj => {
+        if (obj.id == idChart) {
+            dotNetHelper.splice(obj, 1);
+        }
+    });
+    console.log(dotNetHelper);
 }
 
 
 function SetConfigChart(idChart, config) {
-    var con = JSON.parse(config);
-    var chartZero = Chart.getChart(idChart);
+    let con = JSON.parse(config);
+    let chartZero = Chart.getChart(idChart);
     if (chartZero !== undefined) {
         chartZero.destroy();
     }
     con.options.onClick = HandleClickChartZo;
-    var duc = document.getElementById(idChart);
+    let duc = document.getElementById(idChart);
     new Chart(duc, con);
     chartZero.reset();
 }
 
 function SetDataChart(idChart, data) {
-    var con = JSON.parse(data);
-    var chartZero = Chart.getChart(idChart);
+    let con = JSON.parse(data);
+    let chartZero = Chart.getChart(idChart);
     chartZero.data.datasets.push(con);
     chartZero.update();
 }
 
 function UpdateDataChart(idChart, data) {
-    var con = JSON.parse(data);
-    var chartZero = Chart.getChart(idChart);
+    let con = JSON.parse(data);
+    let chartZero = Chart.getChart(idChart);
     chartZero.data = con;
     chartZero.update();
 }
 function UpdateDetaset(idChart, data,idDataset) {
-    var con = JSON.parse(data);
-    var chartZero = Chart.getChart(idChart);
+    let con = JSON.parse(data);
+    let chartZero = Chart.getChart(idChart);
     chartZero.data.datasets[idDataset] = con;
     chartZero.update();
 }
 
 function AddDataToDetaset(idChart, data,idDataset) {
-    var con = JSON.parse(data);
-    var chartZero = Chart.getChart(idChart);
+    let con = JSON.parse(data);
+    let chartZero = Chart.getChart(idChart);
     con.forEach((item) => chartZero.data.datasets[idDataset].data.push(item));
     chartZero.update();
     console.log(chartZero.data.datasets[idDataset].data)
 }
 
 function UpdateLabelChart(idChart, label) {
-    var con = JSON.parse(label);
-    var chartZero = Chart.getChart(idChart);
+    let con = JSON.parse(label);
+    let chartZero = Chart.getChart(idChart);
     chartZero.data.labels = con;
     chartZero.update();
  
@@ -93,6 +108,12 @@ function UpdateTypeChart(idChart, type) {
 }
 
 function HandleClickChartZo(e, legendItem, legend) {
+    let selectClass;
+    dotNetHelper.forEach(obj => {
+        if (obj.id == legend.canvas.id) {
+            selectClass = obj.asmb;
+        }
+    });
     if (legendItem === undefined || legendItem == null) return;
     var p = legendItem[0];
     if (p === undefined || p == null) return;
@@ -104,7 +125,7 @@ function HandleClickChartZo(e, legendItem, legend) {
         "labelDataset": legend.data.datasets[p.datasetIndex].label
     };
     var myJSON = JSON.stringify(outResult);
-    return dotNetHelper.invokeMethodAsync('ClickChartZo', myJSON);
+    return selectClass.invokeMethodAsync('ClickChartZo', myJSON);
 }
 
 
