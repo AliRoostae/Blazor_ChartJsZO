@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
-using StructureChartJs.Hellper;
+using ChartJsStructure.Hellper;
 
 namespace Blazor_ChartJsZO
 {

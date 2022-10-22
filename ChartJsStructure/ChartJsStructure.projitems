@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9acf4359-4c8c-470e-9f32-d57a0adbd575</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ChartJsStructure</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Algorithm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Align.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Arc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Axis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\BackdropPadding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Bar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Border.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\BorderJoinStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\BorderSkipped.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\ChartBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Color\ColorChartZo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Color\ColorRandomZo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Color\RGBA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\ConfigChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\DataChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Dataset.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Datasets.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Decimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\EasingEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Elements.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\EventClickChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Filler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\FluffyX.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\FontChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Grid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Hide.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\HideAnimations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Interaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Labels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Layout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Legend.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Line.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Mode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Options.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\OptionsAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\OptionsAnimations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Padding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Plugins.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Point.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\PointLabels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\PointStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Position.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\PurpleX.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Rxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Scales.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Segment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Show.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\ShowAnimations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Tension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\TextDirection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Ticks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Title.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Tooltip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Transitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\TypChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\WeightFont.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Xalign.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Yalign.cs" />
+  </ItemGroup>
+</Project>
