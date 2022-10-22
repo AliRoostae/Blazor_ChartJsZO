@@ -1,0 +1,68 @@
+﻿@page "/Progressive_line"
+@using ChartJsStructure.Hellper
+@using ChartJsStructure.Hellper.Color
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <ChartJsZO @ref=@_lineChart></ChartJsZO>
+        </div>
+    </div>
+</div>
+@code {
+    ChartJsZO _lineChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Interaction = new Interaction
+                    {
+                        Intersect = false
+                    },
+                    Plugins = new Plugins
+                    {
+                        Legend = new Legend
+                        {
+                            Display = false
+                        }
+                    },
+                    Scales = new Scales
+                    {
+                        X = new Rxy
+                        {
+                            Type = TypChart.line
+                        }
+                    }
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Label = "progressive linear 11",
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.black() },
+                BorderColor = new string[] { ColorChartZo.blue() },
+                BorderWidth = 2
+            });
+        data.Add(new Dataset
+            {
+                Label = "progressive linear 22",
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.black() },
+                BorderColor = new string[] { ColorChartZo.red() },
+                BorderWidth = 2
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Datasets = data,
+                Labels = new TestData().LabelMonth
+            });
+    }
+}

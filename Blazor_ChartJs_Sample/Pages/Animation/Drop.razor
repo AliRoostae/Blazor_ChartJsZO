@@ -1,0 +1,54 @@
+﻿@page "/Drop"
+@using ChartJsStructure.Hellper
+@using ChartJsStructure.Hellper.Color
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <ChartJsZO @ref=@_lineChart ></ChartJsZO>
+        </div>
+    </div>
+</div>
+@code {
+    ChartJsZO _lineChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Animation = new OptionsAnimation
+                    {
+                        Easing = EasingEnum.easeInOutElastic
+                    }
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "drop animation 1111",
+                BackgroundColor = new string[] { ColorChartZo.green() },
+                BorderColor = new string[] { ColorChartZo.black() },
+                Fill = true,
+                Tension = .6
+            });
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "drop animation 2222",
+                BackgroundColor = new string[] { ColorChartZo.red() },
+                BorderColor = new string[] { ColorChartZo.black() }
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+}

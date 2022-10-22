@@ -1,0 +1,68 @@
+﻿@page "/Loop"
+@using ChartJsStructure.Hellper
+@using ChartJsStructure.Hellper.Color
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <ChartJsZO @ref=@_lineChart></ChartJsZO>
+        </div>
+    </div>
+</div>
+@code {
+    ChartJsZO _lineChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _lineChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.line,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Animation = new OptionsAnimation
+                    {
+                        Duration = 400,
+                        Easing = EasingEnum.linear
+                    },
+                    Interaction = new Interaction
+                    {
+                        Mode = Mode.nearest,
+                        Intersect = false,
+                        Axis = Axis.x
+                    },
+                    Plugins = new Plugins
+                    {
+                        Tooltip = new Tooltip
+                        {
+                            Enabled = false
+                        }
+                    },
+                    PointBackgroundColor = ColorChartZo.yellow()
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Label = "Loop data 11",
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.black() },
+                BorderColor = new string[] { ColorChartZo.blue() },
+                Tension = .5
+            });
+        data.Add(new Dataset
+            {
+                Label = "Loop data 22",
+                Data = new TestData().DataForMonth,
+                BackgroundColor = new string[] { ColorChartZo.black() },
+                BorderColor = new string[] { ColorChartZo.red() },
+                Tension = .2
+            });
+        _lineChart.UpdateDataChart(new DataChart
+            {
+                Labels = new TestData().LabelMonth,
+                Datasets = data
+            });
+    }
+}

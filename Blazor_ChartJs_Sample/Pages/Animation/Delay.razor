@@ -1,0 +1,64 @@
+﻿@page "/Delay"
+@using ChartJsStructure.Hellper
+@using ChartJsStructure.Hellper.Color
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <ChartJsZO @ref=@_barChart></ChartJsZO>
+        </div>
+    </div>
+</div>
+
+@code {
+    ChartJsZO _barChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _barChart.InitChart(new ConfigChart
+            {
+                Type = TypChart.bar,
+                Options = new Options
+                {
+                    Responsive = true,
+                    Animation = new OptionsAnimation
+                    {
+                        Delay = 6
+                    },
+                    Scales = new Scales
+                    {
+                        X = new Rxy
+                        {
+                            Stacked = true
+                        },
+                        Y = new Rxy
+                        {
+                            Stacked = true
+                        }
+                    }
+                }
+            });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "delay animation 1111",
+                BackgroundColor = new string[] { ColorChartZo.green() },
+                BorderColor = new string[] { ColorChartZo.black() }
+            });
+        data.Add(new Dataset
+            {
+                Data = new TestData().DataForMonth,
+                Label = "delay animation 2222",
+                BackgroundColor = new string[] { ColorChartZo.red() },
+                BorderColor = new string[] { ColorChartZo.black() }
+            });
+        _barChart.UpdateDataChart(new DataChart
+        {
+            Labels = new TestData().LabelMonth,
+            Datasets = data
+        });
+    }
+}
