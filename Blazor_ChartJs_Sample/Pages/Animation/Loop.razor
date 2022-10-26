@@ -39,7 +39,8 @@
                             Enabled = false
                         }
                     },
-                    PointBackgroundColor = ColorChartZo.yellow()
+                    HoverBackgroundColor = "yellow",
+                    HoverRadius = 12
                 }
             });
         List<Dataset> data = new List<Dataset>();
@@ -47,7 +48,7 @@
             {
                 Label = "Loop data 11",
                 Data = new TestData().DataForMonth,
-                BackgroundColor = new string[] { ColorChartZo.black() },
+                BackgroundColor = new string[] { ColorChartZo.yellow() },
                 BorderColor = new string[] { ColorChartZo.blue() },
                 Tension = .5
             });
@@ -55,7 +56,7 @@
             {
                 Label = "Loop data 22",
                 Data = new TestData().DataForMonth,
-                BackgroundColor = new string[] { ColorChartZo.black() },
+                BackgroundColor = new string[] { ColorChartZo.yellow() },
                 BorderColor = new string[] { ColorChartZo.red() },
                 Tension = .2
             });

@@ -3,7 +3,11 @@
 @using ChartJsStructure.Hellper.Color
 
 <div class="container-fluid">
-    <ChartJsZO @ref="@_lineChart"></ChartJsZO>
+    <div class="row">
+        <div class=" col-md-10 col-sm-12">
+            <ChartJsZO @ref="@_lineChart"></ChartJsZO>
+        </div>
+    </div>
 </div>
 
 @code {

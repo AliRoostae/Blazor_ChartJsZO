@@ -1,0 +1,58 @@
+﻿@page "/Scatter"
+@using ChartJsStructure.Hellper
+@using ChartJsStructure.Hellper.Color
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <ChartJsZO @ref="_scatterChart"></ChartJsZO>
+        </div>
+    </div>
+</div>
+@code {
+    ChartJsZO _scatterChart;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        _scatterChart.InitChart(new ConfigChart
+        {
+            Type = TypChart.scatter,
+            Options = new Options
+            {
+                Plugins = new Plugins
+                {
+                    Legend = new Legend
+                    {
+                        Position = Position.top
+                    },
+                    Title = new Title
+                    {
+                        Display = true,
+                        Text= "ChartJs Blazor scatter"
+                    }
+                }
+            }
+        });
+        List<Dataset> data = new List<Dataset>();
+        data.Add(new Dataset
+            {
+                Label = "data111",
+                Data = new TestData().DataForMonth,
+                BorderColor = new string[] { ColorChartZo.red() },
+                BackgroundColor = new string[] { ColorChartZo.red(.3F)}
+            });
+        data.Add(new Dataset
+            {
+                Label = "data222",
+                Data = new TestData().DataForMonth,
+                BorderColor = new string[] { ColorChartZo.orange() },
+                BackgroundColor = new string[] { ColorChartZo.orange(.3F)}
+            });
+        _scatterChart.UpdateDataChart(new DataChart
+        {
+            Labels = new TestData().LabelMonth,
+            Datasets = data
+        });
+    }
+}

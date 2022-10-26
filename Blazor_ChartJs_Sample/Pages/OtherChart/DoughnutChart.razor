@@ -1,8 +1,14 @@
 ﻿@page "/Doughnet"
 @using ChartJsStructure.Hellper
 
-<ChartJsZO  @ref="@_doughunetChart"></ChartJsZO>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-md-10 col-sm-12">
+            <ChartJsZO  @ref="@_doughunetChart"></ChartJsZO>
+        </div>
+    </div>
+</div>
 @code {
     ChartJsZO _doughunetChart;
 

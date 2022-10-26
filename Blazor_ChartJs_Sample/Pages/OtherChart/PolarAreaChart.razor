@@ -1,10 +1,14 @@
 ﻿@page "/PolarAreaChart"
 @using ChartJsStructure.Hellper
+
+
 <div class="container-fluid">
-
-    <ChartJsZO  @ref="@_polarAreaChart"></ChartJsZO>
+    <div class="row">
+        <div class=" col-md-10 col-sm-12">
+            <ChartJsZO  @ref="@_polarAreaChart"></ChartJsZO>
+        </div>
+    </div>
 </div>
-
 @code {
     ChartBase _polarAreaConfig;
     ChartJsZO _polarAreaChart;

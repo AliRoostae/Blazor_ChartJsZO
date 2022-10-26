@@ -1,7 +1,13 @@
 ﻿@page "/ChartLinePointStyle";
 @using ChartJsStructure.Hellper
 
-<ChartJsZO  @ref="@_lineChart"></ChartJsZO>
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-md-10 col-sm-12">
+            <ChartJsZO @ref="@_lineChart"></ChartJsZO>
+        </div>
+    </div>
+</div>
 
 @code {
     ChartJsZO _lineChart;
@@ -12,13 +18,13 @@
         if (!firstRender) return;
 
         _lineChart.InitChart(new ConfigChart
-        {
-            Type = TypChart.line,
+            {
+                Type = TypChart.line,
                 Options = new Options
                 {
                     Responsive = true
                 }
-        });
+            });
         List<Dataset> data1 = new List<Dataset>();
         data1.Add(new Dataset
             {

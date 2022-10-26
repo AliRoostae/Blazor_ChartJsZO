@@ -2,10 +2,14 @@
 @using ChartJsStructure.Hellper
 @using ChartJsStructure.Hellper.Color
 
-<div class="container-fluid">
-    <ChartJsZO  @ref="_mixChart"></ChartJsZO>
-</div>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <ChartJsZO  @ref="_mixChart"></ChartJsZO>
+        </div>
+    </div>
+</div>
 @code {
     ChartBase _mixConfig;
     ChartJsZO _mixChart;

@@ -2,8 +2,13 @@
 @using ChartJsStructure.Hellper
 @using ChartJsStructure.Hellper.Color
 
-
-<ChartJsZO @ref="@_LineChart"></ChartJsZO>
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-md-10 col-sm-12">
+            <ChartJsZO @ref="@_LineChart"></ChartJsZO>
+        </div>
+    </div>
+</div>
 
 @code {
     ChartJsZO _LineChart;
@@ -14,8 +19,8 @@
         if (!firstRender) return;
 
         _LineChart.InitChart(new ConfigChart
-        {
-            Type = TypChart.line,
+            {
+                Type = TypChart.line,
                 Options = new Options
                 {
                     Responsive = true,
@@ -34,7 +39,7 @@
                         }
                     }
                 }
-        });
+            });
         List<Dataset> data1 = new List<Dataset>();
         data1.Add(new Dataset
             {
