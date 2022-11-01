@@ -1,4 +1,4 @@
-﻿
+﻿//////////////////////Import////////////////
 function loadScript(url, callback) {
 
     var script = document.createElement("script")
@@ -24,12 +24,12 @@ function loadScript(url, callback) {
 
 loadScript("_content/Blazor_ChartJsZO/ChartJs/chart.js", function () { });
 
+
 //////////////////////Import////////////////
 
 
 
-
-
+///Assembly ///////////////////////////////////
 
 var dotNetHelper;
 function SetAssemblyName(dotNetHelperarg, idChart) {
@@ -39,7 +39,7 @@ function SetAssemblyName(dotNetHelperarg, idChart) {
     } else {
        dotNetHelper.push({ id: idChart, asmb: dotNetHelperarg });
     }
-    console.log(dotNetHelper);
+  
 }
 function DisposAssemblyName(idChart) {
 
@@ -48,9 +48,13 @@ function DisposAssemblyName(idChart) {
             dotNetHelper.splice(obj, 1);
         }
     });
-    console.log(dotNetHelper);
+   
 }
 
+
+///Assembly ///////////////////////////////////
+
+///ChartJs ///////////////////////////////////
 
 function SetConfigChart(idChart, config) {
     let con = JSON.parse(config);
@@ -89,7 +93,7 @@ function AddDataToDetaset(idChart, data,idDataset) {
     let chartZero = Chart.getChart(idChart);
     con.forEach((item) => chartZero.data.datasets[idDataset].data.push(item));
     chartZero.update();
-    console.log(chartZero.data.datasets[idDataset].data)
+ 
 }
 
 function UpdateLabelChart(idChart, label) {
@@ -128,6 +132,6 @@ function HandleClickChartZo(e, legendItem, legend) {
     return selectClass.invokeMethodAsync('ClickChartZo', myJSON);
 }
 
-
+///ChartJs ///////////////////////////////////
 
 

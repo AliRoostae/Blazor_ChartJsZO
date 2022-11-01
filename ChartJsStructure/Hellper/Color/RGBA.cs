@@ -9,7 +9,7 @@ namespace ChartJsStructure.Hellper.Color
 {
     public class RGBA
     {
-        public RGBA(byte r, byte g, byte b, float o)
+        public RGBA(byte r, byte g, byte b, float o=0.95F)
         {
             red = r;
             green = g;
