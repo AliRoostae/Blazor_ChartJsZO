@@ -1,12 +1,20 @@
 ﻿@page "/persian"
 
-<h3>MapPersian</h3>
+<h3>@_evnt.Value</h3>
+<h3>@_evnt.ProvinceName</h3>
+<h3>@_evnt.CodMapChart</h3>
 
-    <PersianMapZO @ref=persian />
+<PersianMapZO ChartClick="@ChartClick" @ref=persian />
 
 @code {
     PersianMapZO persian;
-   
+    ValueMapEvent _evnt = new ValueMapEvent();
+
+    private void ChartClick(ValueMapEvent argo)
+    {
+        _evnt = argo;
+    }
+    
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;

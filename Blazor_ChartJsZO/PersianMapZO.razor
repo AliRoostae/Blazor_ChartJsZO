@@ -1,7 +1,11 @@
 ﻿<!--Tanks to https://skilledup.ir/iran-map/  for SVG Persin Map-->
 
-<p>@pp</p>
-<svg x="0px" y="0px" width="auto" height="auto" viewBox="150 0 650 600">
+
+<div hidden="@_NoShow" style="position:absolute;top:@($"{_y}px");left:@($"{_x}px"); width:auto; height:auto; z-index:99; border-radius:12px; opacity: 0.8; border-color:#e9b51c; border-style: solid; background-color:#d3d940; padding-left: 5px; padding-right: 5px; direction: rtl;">
+    <p style="color:black;z-index:999;font-size:18px;">@_evMap.ProvinceName</p>
+    <p style="color:black;z-index:999;font-size:18px;">تعداد : @_evMap.Value.ToString("N0")</p>
+</div>
+<svg x="0px" y="0px" width="auto" height="auto" viewBox="150 0 650 600" @onmousemove="@MouseMove">
        
         <style type="text/css">
         #States a:hover path {filter: opacity(0.7);}
@@ -101,7 +105,7 @@ c0.35-0.54,0.52-1.12,0.87-1.65C520.66,527.5,520.43,526.56,520.65,525.72z"></path
 L331.2,534.68z"></path>
         @foreach (var item in _listProvince)
         {
-            <a id="@item.Id" @onclick=@(_ => SelectItem(item.Value)) @onmouseover=@(_=>OnMouseo(item.Value) )>
+            <a id="@item.Id" @onclick=@(_ => SelectItem(new ValueMapEvent{CodMapChart=item.CodMapChart,ProvinceName=item.DisplayName,Value=item.Value})) @onmouseover="@OnMouseo">
                 @((MarkupString)($"<path  style='fill:{item.Color};' fill-rule='evenodd' clip-rule='evenodd' {item.MapData}"))
 
             </a>

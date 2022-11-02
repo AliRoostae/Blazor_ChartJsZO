@@ -1,6 +1,8 @@
 ﻿
 
+using ChartJsStructure.Hellper;
 using ChartJsStructure.Hellper.Color;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Blazor_ChartJsZO
@@ -8,13 +10,14 @@ namespace Blazor_ChartJsZO
     //Tanks to https://skilledup.ir/iran-map/  for SVG Persin Map
     public partial class PersianMapZO
     {
+        [Parameter]
+        public EventCallback<ValueMapEvent> ChartClick { get; set; }
 
         readonly List<Province> _listProvince = ProvinceClass.ListProvince;
-
+        ValueMapEvent _evMap=new ValueMapEvent();
         public void InitChartMap(List<ValueMap> argo)
         {
             if (argo == null || !argo.Any())return;
-            _filarry = 0;
             catag(argo.Max(x => x.Value));
             Array.Sort(_selectRng);
             var rgb = Rgb();
@@ -42,7 +45,6 @@ namespace Blazor_ChartJsZO
 
         }
         int[] _selectRng=new int[14];
-        byte _filarry = 0;
         private static RGBA[] Rgb()
         {
             var result = new RGBA[15];
@@ -62,22 +64,48 @@ namespace Blazor_ChartJsZO
                  _selectRng[i]=step*(i+1);
 
         }
+      
+        bool _NoShow=true;
+        void SelectItem(ValueMapEvent argo)
+        {
+            _evMap = new ValueMapEvent
+            {
+                CodMapChart = argo.CodMapChart,
+                ProvinceName = argo.ProvinceName,
+                Value = argo.Value,
+            };
 
-        string pp { get; set; } = "klj";
-        void SelectItem(int argo)
-        {
-            pp = $"--{argo}";
+            _NoShow = false;
+            ChartClick.InvokeAsync(argo);
         } 
-        void OnMouseo(int argo)
+        void OnMouseo()
         {
-            pp = $"MMMM-{argo}";
+            _NoShow = true;
         }
+      
+        double _x;
+        double _y;
+        protected void MouseMove(MouseEventArgs e)
+        {
+          
+            _x = e.PageX;
+            _y = e.PageY;
+        }
+
     }
     public class ValueMap
     {
        
         public byte CodMapChart { get; set; }
          public int Value { get; set; }
+    }
+
+     public class ValueMapEvent : ValueMap
+    {
+       
+        public string ProvinceName { get; set; }=string.Empty;
+        
+
     }
 
 
@@ -1429,7 +1457,7 @@ C485.59,125.63,486.46,123.85,487.62,122.01z""></path>
             ListProvince.Add(new Province
             {
                 CodMapChart = 28,
-                DisplayName = "",
+                DisplayName = "قزوین",
                 Id = "ghazvin",
                 MapData = @" d=""M300.81,158.32c2.25-1.87,5.16-2.41,8-2.76
 c1.01,1.36,1.95,2.94,3.57,3.65c1.83,0.93,3.94,0.85,5.89,1.34c1.83,0.77,3.53,2.05,5.62,1.91c3.17,0.26,5.46-2.52,8.48-2.94
