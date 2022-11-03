@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using ChartJsStructure.Hellper;
+using ChartJsStructure.Hellper.Worker;
 
 namespace Blazor_ChartJsZO
 {
@@ -68,7 +69,7 @@ namespace Blazor_ChartJsZO
     
         }
        
-          public  void UpdateDetaset(Dataset argo,int index)
+      public  void UpdateDetaset(Dataset argo,int index)
         { 
             if(index < 0) index = 0;
             if(ChartConfig == null) return;
@@ -88,7 +89,7 @@ namespace Blazor_ChartJsZO
            
         }
       
-          public void AddDataToDetaset(string[] argo, int index)
+      public void AddDataToDetaset(List<AddDataToDetasetChart> argo, int index)
         {
             if (argo == null || !argo.Any()) return;
             if (index < 0) index = 0;
@@ -99,23 +100,27 @@ namespace Blazor_ChartJsZO
             if (index + 1 > dataset.Datasets?.Count()) return;
             var select = dataset?.Datasets?[index];
             if (select == null) return;
-           
-            select.Data.AddRange(argo);
+            var dataAdd = argo.Select(i => i.Data);
+            select.Data.AddRange(dataAdd);
+            dataset.Labels.AddRange(argo.Select(i=>i.Label));
+
 
             var count = select.Data.Count();
+           
             var countlabel = dataset.Labels.Count();
             if(countlabel < count)
             {
                 var dif =  count - countlabel;
                 for (int i = 0; i < dif; i++)
                 {
-                    dataset.Labels.Add($"Not Label value {argo[i]}");
+                    var setLab = i < argo.Count() - 1 ? argo[i].Data : "__NO__";
+                    dataset.Labels.Add($"Not Label value {setLab}");
                 }
 
-                UpdateLabel(dataset.Labels);
+               
             }
-
-            var jspr = JsonConvert.SerializeObject(argo, Formatting.None,
+        UpdateLabel(dataset.Labels);
+            var jspr = JsonConvert.SerializeObject(dataAdd, Formatting.None,
                             new JsonSerializerSettings
                             {
                                 NullValueHandling = NullValueHandling.Ignore
@@ -123,7 +128,7 @@ namespace Blazor_ChartJsZO
             JS.InvokeVoidAsync("AddDataToDetaset", ChatrID, jspr, index);
         }
 
-          public void UpdateDataChart(DataChart argo)
+      public void UpdateDataChart(DataChart argo)
         {
             if(argo == null) return;
             if (ChartConfig == null) return;
@@ -138,7 +143,7 @@ namespace Blazor_ChartJsZO
 
         }
 
-         public  void UpdateLabel(List<string> argo)
+      public  void UpdateLabel(List<string> argo)
         {
             if(ChartConfig == null) return;
             if (argo == null) return;
@@ -156,7 +161,7 @@ namespace Blazor_ChartJsZO
         }
       
 
-         public  void UpdateType(TypChart argo)
+      public  void UpdateType(TypChart argo)
         {
             if(ChartConfig == null) return;
             ChartConfig.Type =argo;

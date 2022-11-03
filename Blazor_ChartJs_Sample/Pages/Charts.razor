@@ -1,6 +1,7 @@
 ﻿@page "/Charts"
 @using ChartJsStructure.Hellper
 @using ChartJsStructure.Hellper.Color
+@using ChartJsStructure.Hellper.Worker
 
 <div class="container-fluid">
     <h3>Please Click on "UpdateDataChart" button to show sample Chart</h3>
@@ -27,7 +28,15 @@
 
     void AddDataToDetaset()
     {
-        childChart.AddDataToDetaset(new[] { "100", "250", "300", "50", "200" }, 0);
+        List<AddDataToDetasetChart> data = new List<AddDataToDetasetChart>();
+        data.Add(new AddDataToDetasetChart {
+                Data = "100",
+                Label = "100",
+            }); data.Add(new AddDataToDetasetChart {
+                Data = "500",
+                Label = "500",
+            });
+        childChart.AddDataToDetaset(data, 0);
     }
 
     void UpdateLabel()
