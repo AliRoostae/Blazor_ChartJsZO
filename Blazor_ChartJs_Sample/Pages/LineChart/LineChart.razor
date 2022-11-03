@@ -5,7 +5,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10 col-sm-12">
-            <ChartJsZO  @ref="@_lineChart"></ChartJsZO>
+            <ChartJsZO @ref="@_lineChart"></ChartJsZO>
+            
         </div>
         <div class="col-md-2 col-sm-12">
             <div class="d-block">
@@ -55,7 +56,8 @@
                 Options = new Options
                 {
                     Responsive = true,
-                    Fill = true
+                    Fill = true,
+                    MaintainAspectRatio = false
                 }
             });
         List<Dataset> data1 = new List<Dataset>();

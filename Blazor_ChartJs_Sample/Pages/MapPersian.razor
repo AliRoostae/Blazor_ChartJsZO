@@ -1,18 +1,30 @@
-﻿@page "/persian"
+﻿@page "/PersianMap"
 
-<h3>@_evnt.Value</h3>
-<h3>@_evnt.ProvinceName</h3>
-<h3>@_evnt.CodMapChart</h3>
-
-<PersianMapZO ChartClick="@ChartClick" @ref=persian />
+<div class="container-fluid" dir="rtl">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <h4 class="text-center text-black p-1">تعداد تردد: <strong>@_event.Value</strong></h4>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <h4 class="text-center text-black p-1">نام استان: <strong>@_event.ProvinceName</strong></h4>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <h4 class="text-center text-black p-1">کد استان: <strong>@_event.CodMapChart</strong></h4>
+        </div>
+        <div class="col-md-12 col-sm-12"><h5 class="m-2 mr-4">با استفاده از <span>ValueMapEvent</span> میتوان داده های هر استان را خروجی بگیرید و مشاهده کنید.</h5></div>
+        <div class="col-md-12 col-sm-12">
+            <PersianMapZO ChartClick="@ChartClick" @ref=persian></PersianMapZO>
+        </div>
+    </div>
+</div>
 
 @code {
-    PersianMapZO persian;
-    ValueMapEvent _evnt = new ValueMapEvent();
+    PersianMapZO persian =new PersianMapZO();
+    ValueMapEvent _event = new ValueMapEvent();
 
     private void ChartClick(ValueMapEvent argo)
     {
-        _evnt = argo;
+        _event = argo;
     }
     
     protected override void OnAfterRender(bool firstRender)
