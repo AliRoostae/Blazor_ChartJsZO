@@ -66,6 +66,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Hellper\TypChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hellper\WeightFont.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hellper\Worker\AddDataToDetasetChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hellper\Worker\MonitorSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hellper\Xalign.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hellper\Yalign.cs" />
   </ItemGroup>

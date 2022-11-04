@@ -14,6 +14,7 @@
     <button class="btn btn-primary" @onclick="UpdateData">Update Data</button>
     <button class="btn btn-primary" @onclick="UpdateDataChart">UpdateData Chart</button>
     <button class="btn btn-primary" @onclick="AddDataToDetaset">Add Data To Detaset</button>
+    <button class="btn btn-primary" @onclick="RemoveDataToDetaset">Remove Data To Detaset</button>
     <ChartJsZO @ref=@childChart ChartClick=@ClickChart />
 </div>
 @code {
@@ -96,7 +97,9 @@
                 Datasets = data
             });
     }
-
+    void RemoveDataToDetaset(){
+        childChart.RemoveDataToDetaset(0, 0);
+    }
     void DatasetAdd()
     {
         childChart.AddDetaset(new Dataset
@@ -132,4 +135,5 @@
                 }
             });
     }
+
 }

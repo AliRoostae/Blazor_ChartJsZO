@@ -95,6 +95,15 @@ function AddDataToDetaset(idChart, data,idDataset) {
     chartZero.update();
  
 }
+function RemoveDataToDetaset(idChart, index, idDataset) {
+   
+    let chartZero = Chart.getChart(idChart);
+    chartZero.data.datasets[idDataset].data.splice(index, 1);
+ 
+    chartZero.update();
+ 
+}
+
 
 function UpdateLabelChart(idChart, label) {
     let con = JSON.parse(label);

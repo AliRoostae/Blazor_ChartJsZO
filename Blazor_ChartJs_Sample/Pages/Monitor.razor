@@ -1,0 +1,71 @@
+﻿@page "/Monitor"
+@using ChartJsStructure.Hellper.Color
+@using ChartJsStructure.Hellper.Worker
+@using System.Timers
+
+<ChartJsZOMonitor @ref=@childChart />
+
+
+
+
+
+@code {
+    ChartJsZOMonitor childChart;
+    Random _rnd = new Random();
+  System.Timers.Timer aTimer = new System.Timers.Timer();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        var nameDataSet = new string[] { "Cpu", "Ram", "Hdd", "Network" };
+        var data = new MointorBase[]
+        {
+            new MointorBase
+            {
+              BackgroundColor =ColorChartZo.blue(0.3F),
+              Fill=true,
+              NameDataSet="Cpu",
+            
+            },
+            new MointorBase
+            {
+              BackgroundColor =ColorChartZo.yellow(0.3F),
+              Fill=true,
+              NameDataSet="Ram"
+            },
+            new MointorBase
+            {
+              BackgroundColor =ColorChartZo.black(0.3F),
+              Fill=false,
+              NameDataSet="Hdd"
+            },
+            new MointorBase
+            {
+              BackgroundColor =ColorChartZo.red(0.3F),
+              Fill=true,
+              NameDataSet="Network"
+            },
+
+
+        };
+
+        childChart.InitChart(new MonitorSet(100, data));
+
+        System.Timers.Timer aTimer = new System.Timers.Timer();
+        aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+        aTimer.Interval = 500;
+        aTimer.Enabled = true;
+    }
+
+
+    private  void OnTimedEvent(object source, ElapsedEventArgs e)
+    {
+        childChart.AddData(0, (int)_rnd.Next(100));
+        childChart.AddData(1, (int)_rnd.Next(100));
+        childChart.AddData(2, (int)_rnd.Next(100));
+        childChart.AddData(3, (int)_rnd.Next(100));
+    }
+   
+  
+   
+}

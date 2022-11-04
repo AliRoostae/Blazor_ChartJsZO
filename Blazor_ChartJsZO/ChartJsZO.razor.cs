@@ -1,16 +1,19 @@
 ﻿
+
+
+using ChartJsStructure.Hellper;
+using ChartJsStructure.Hellper.Worker;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
-using ChartJsStructure.Hellper;
-using ChartJsStructure.Hellper.Worker;
+using System;
 
 namespace Blazor_ChartJsZO
 {
-    partial class ChartJsZO
+     partial class ChartJsZO: Base
     {
-   
-        private DotNetObjectReference<ChartJsZO>? objRef;
+
+        internal DotNetObjectReference<ChartJsZO>? objRef;
         public void Dispose()
         {
             objRef?.Dispose();
@@ -20,37 +23,19 @@ namespace Blazor_ChartJsZO
         {
             objRef = DotNetObjectReference.Create(this);
             JS.InvokeAsync<string>("SetAssemblyName", objRef, ChatrID);
-            
-        }
 
+        }
+        [Parameter]
+        public EventCallback<EventClickChart> ChartClick { get; set; }
         [JSInvokable]
-        public  void ClickChartZo(string argo)
+        public void ClickChartZo(string argo)
         {
             var result = JsonConvert.DeserializeObject<EventClickChart>(argo);
             ChartClick.InvokeAsync(result);
         }
-        static int Id = 0;
-        string ChatrID { get; set; } = $"chartZeroOne{++Id}";
-
-         ChartBase ChartConfig { get; set; }
-       
-         [Parameter]
-        public EventCallback<EventClickChart> ChartClick { get; set; }
-
         public void InitChart(ConfigChart argo)
         {
-            ChartConfig = new ChartBase
-            {
-                Options = argo.Options,
-                Type = argo.Type,
-                Data = new DataChart()
-            };
-           var jspr = JsonConvert.SerializeObject(ChartConfig, Formatting.None,
-                       new JsonSerializerSettings
-                       {
-                           NullValueHandling = NullValueHandling.Ignore
-                       });
-            JS.InvokeVoidAsync("SetConfigChart", ChatrID, jspr);
+            JS.InvokeVoidAsync("SetConfigChart", ChatrID, Init(argo));
         }
 
        public  void AddDetaset(Dataset argo)
@@ -70,21 +55,9 @@ namespace Blazor_ChartJsZO
         }
        
       public  void UpdateDetaset(Dataset argo,int index)
-        { 
-            if(index < 0) index = 0;
-            if(ChartConfig == null) return;
-            if (argo == null) return;
-            var dataset = ChartConfig.Data;
-            if (dataset == null) dataset = new DataChart();
-            if ( index+1  > dataset.Datasets?.Count()) return;
-            var select = dataset?.Datasets?[index];
-            if (select==null) return;
-            select = argo;
-            var jspr = JsonConvert.SerializeObject(argo, Formatting.None,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
+        {
+            var jspr = UpdateDetasetInternal(argo, index);
+            if(string.IsNullOrEmpty(jspr))return;
             JS.InvokeVoidAsync("UpdateDetaset", ChatrID, jspr, index);
            
         }
@@ -102,12 +75,11 @@ namespace Blazor_ChartJsZO
             if (select == null) return;
             var dataAdd = argo.Select(i => i.Data);
             select.Data.AddRange(dataAdd);
-            dataset.Labels.AddRange(argo.Select(i=>i.Label));
-
-
             var count = select.Data.Count();
-           
             var countlabel = dataset.Labels.Count();
+            if (countlabel < count)
+                dataset.Labels.AddRange(argo.Select(i=>i.Label));
+             countlabel = dataset.Labels.Count();
             if(countlabel < count)
             {
                 var dif =  count - countlabel;
@@ -127,18 +99,28 @@ namespace Blazor_ChartJsZO
                             });
             JS.InvokeVoidAsync("AddDataToDetaset", ChatrID, jspr, index);
         }
+         public void RemoveDataToDetaset(int indexData, int indexChart)
+        {
+            indexChart = indexChart < 0 ? 0 : indexChart;
+            indexData = indexData < 0 ? 0 : indexData;
+            if (ChartConfig == null) return;
+            var dataset = ChartConfig.Data;
+            if (dataset == null) dataset = new DataChart();
+            if (indexChart + 1 > dataset.Datasets?.Count()) return;
+       
+            var select = dataset?.Datasets?[indexChart];
+            if (select == null) return;
+            if (indexData + 1 > select.Data?.Count()) return;
+            select.Data.RemoveAt(indexData);
+
+            JS.InvokeVoidAsync("RemoveDataToDetaset", ChatrID, indexData, indexChart);
+        }
 
       public void UpdateDataChart(DataChart argo)
         {
-            if(argo == null) return;
-            if (ChartConfig == null) return;
-            if (ChartConfig.Data == null) ChartConfig.Data=new DataChart();
-            ChartConfig.Data = argo;
-            var jspr = JsonConvert.SerializeObject(argo, Formatting.None,
-                        new JsonSerializerSettings
-                        {
-                            NullValueHandling = NullValueHandling.Ignore
-                        });
+
+            var jspr = UpdateDataChartInternal(argo);
+            if (string.IsNullOrEmpty(jspr)) return;
             JS.InvokeVoidAsync("UpdateDataChart", ChatrID, jspr);
 
         }
